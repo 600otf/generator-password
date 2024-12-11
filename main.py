@@ -5,34 +5,29 @@ from Crypto.Random import get_random_bytes
 import base64
 
 def generate_password(length, include_digits, include_special_chars):
-    # Définir les ensembles de caractères possibles
+    # Define possible character sets
     characters = string.ascii_letters
     if include_digits:
         characters += string.digits
     if include_special_chars:
         characters += string.punctuation
 
-    # Générer un mot de passe aléatoire
-    password = ''.join(random.choice(characters) for i in range(length))
+    # Generate a random password
+    password = ''.join(random.choice(characters) for _ in range(length))
+    return password
 
-    # S'assurer que la longueur du mot de passe est de 16 octets pour le chiffrement
-    if len(password) < 16:
-        password = password.ljust(16)  # Compléter le mot de passe à 16 octets
-    else:
-        password = password[:16]  # Tronquer le mot de passe à 16 octets
+# Example usage
+try:
+    length = int(input("Enter password length (8, 16, 24, 32): "))
+    if length not in [8, 16, 24, 32]:
+        raise ValueError("Password length must be one of the following: 8, 16, 24, or 32.")
+    
+    include_digits = input("Include digits? (yes/no): ").lower() == 'yes'
+    include_special_chars = input("Include special characters? (yes/no): ").lower() == 'yes'
 
-    # Chiffrer le mot de passe
-    key = get_random_bytes(32)  # AES-256 nécessite une clé de 32 octets
-    cipher = AES.new(key, AES.MODE_ECB)
-    password_bytes = password.encode()
-    encrypted_password = cipher.encrypt(password_bytes)
-    encoded_password = base64.b64encode(encrypted_password).decode('utf-8')
+    # Generate the password
+    password = generate_password(length, include_digits, include_special_chars)
+    print("Generated password:", password)
 
-    return encoded_password
-
-# Exemple d'utilisation
-length = int(input("Enter password length (8, 16, 24, 32): "))
-include_digits = input("Include digits? (yes/no): ").lower() == 'yes'
-include_special_chars = input("Include special characters? (yes/no): ").lower() == 'yes'
-
-print("Generated password:", generate_password(length, include_digits, include_special_chars))
+except ValueError as e:
+    print("Error:", e)
