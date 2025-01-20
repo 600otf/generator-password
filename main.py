@@ -3,7 +3,6 @@ import random
 from Crypto.Cipher import AES
 from Crypto.Random import get_random_bytes
 import base64
-
 import string
 
 
@@ -25,10 +24,12 @@ banner =f"""
 |  |  ||    _]|  |  ||    _]|    / |     ||_|  |_||  O  ||    /     |   _/ |     | \__  |\__  ||  |  |  ||  O  ||    / |  D  |
 |  |_ ||   [_ |  |  ||   [_ |    \ |  _  |  |  |  |     ||    \     |  |   |  _  | /  \ |/  \ ||  `  '  ||     ||    \ |     |
 |     ||     ||  |  ||     ||  .  \|  |  |  |  |  |     ||  .  \    |  |   |  |  | \    |\    | \      / |     ||  .  \|     |
-|___,_||_____||__|__||_____||__|\_||__|__|  |__|   \___/ |__|\_|    |__|   |__|__|  \___| \___|  \_/\_/   \___/ |__|\_||_____|  """
+|___,_||_____||__|__||_____||__|\_||__|__|  |__|   \___/ |__|\_|    |__|   |__|__|  \___| \___|  \_/\_/   \___/ |__|\_||_____|  
                                                                                                                               
-
+{END}
+"""
 print(banner)
+
 def generate_password(length, include_digits, include_special_chars):
     # Define possible character sets
     characters = string.ascii_letters
